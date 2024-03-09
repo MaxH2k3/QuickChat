@@ -45,14 +45,23 @@ namespace WebSignalR.Models
         {
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasKey(e => e.UserId);
+
                 entity.ToTable("User");
 
                 entity.Property(e => e.UserId);
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
+                entity.Property(e => e.Email)
+					.HasMaxLength(255);
+
+                entity.Property(e => e.Gender);
+
                 entity.Property(e => e.Password)
                     .HasMaxLength(255);
+
+                entity.Property(e => e.PasswordSalt);
 
                 entity.Property(e => e.Role)
                     .HasMaxLength(255);

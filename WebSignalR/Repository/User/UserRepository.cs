@@ -52,6 +52,7 @@ namespace WebSignalR.Repository
                 UserId = Guid.NewGuid(),
                 Email = registerUser.Email,
                 Username = registerUser.Username,
+                Gender = registerUser.Gender,
                 DateCreated = DateTime.UtcNow,
                 Password = passwordHash,
                 PasswordSalt = passwordSalt,

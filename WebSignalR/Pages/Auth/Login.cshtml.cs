@@ -41,7 +41,7 @@ namespace WebSignalR.Pages.Login
                     new("UserId", user.UserId.ToString()),
                     new("UserName", user.Username!),
                     new("Role", user.Role!),
-                    new(ClaimsIdentity.DefaultNameClaimType, user.UserId.ToString()),
+                    new("Gender", user.Gender!)
                 };
 
                 var claimsIdentity = new ClaimsIdentity(
@@ -81,5 +81,6 @@ namespace WebSignalR.Pages.Login
             return Redirect("login");
         }
 
+        
     }
 }

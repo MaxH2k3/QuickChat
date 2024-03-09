@@ -73,17 +73,9 @@ namespace WebSignalR.Hubs
 			Console.WriteLine("You have been joined!");
 		}
 
-		public async Task RemoveFromGroup(string groupName)
+		public async Task RemoveFromGroup(string groupId)
 		{
 			string userId = Claims.ElementAt(0).Value;
-
-			// Check group exist
-			var groupId = await _groupRepository.GetIdOfGroup(groupName);
-			if (groupId == Guid.Empty)
-			{
-				Console.WriteLine("Group not found!");
-				return;
-			}
 
 			// Check userId exist on group
 			if (!(await _groupUserRepository.IsExistOnGroup(userId, groupId.ToString())))
@@ -92,14 +84,14 @@ namespace WebSignalR.Hubs
 				return;
 			}
 
-			// Remove user 
+			// Remove user from database
 			_ = _groupUserRepository.RemoveUserFromGroup(userId, groupId.ToString());
 
 			// Remove user from group
 			await Groups.RemoveFromGroupAsync(userId, groupId.ToString());
 
 			// Notification
-			await Clients.Group(groupName).SendAsync("Send", $"{Claims.ElementAt(1).Value} has left the group {groupName}.");
+			await Clients.Group(groupId).SendAsync("Send", $"{Claims.ElementAt(1).Value} has left the group.");
 		}
 
 		public async Task SendMessageToGroup(string groupId, string message)

@@ -11,6 +11,13 @@
 }
 
 .container .row {
-    height: 100%;
     border-radius: 0.8rem;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: lightgray;
 }

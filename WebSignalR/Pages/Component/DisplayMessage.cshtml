@@ -4,6 +4,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+	var userName = Context.User.Claims.ElementAt(1).Value;
+	var gender = Context.User.Claims.ElementAt(3).Value;
 }
 
 <input type="hidden" id="leave-group" class="btn" value="Leave Group" />
@@ -13,12 +15,12 @@
 		<div class="card-header msg_head">
 			<div class="d-flex bd-highlight">
 				<div class="img_cont">
-					<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+					<img src="/image/female/female1.jpg" class="rounded-circle user_img">
 					<span class="online_icon"></span>
 				</div>
 				<div class="user_info">
-					<span>Chat with Khalid</span>
-					<p>1767 Messages</p>
+					<span>@userName</span>
+					<p>@gender</p>
 				</div>
 				<div class="video_cam">
 					<span><i class="fas fa-video"></i></span>
@@ -31,7 +33,11 @@
 					<li><i class="fas fa-user-circle"></i> View profile</li>
 					<li><i class="fas fa-users"></i> Add to close friends</li>
 					<li><i class="fas fa-plus"></i> Add to group</li>
-					<li id="leave-group"><i class="fa-solid fa-arrow-right-from-bracket"></i> Leave</li>
+					<form method="post">
+						<li><i class="fa-solid fa-arrow-right-from-bracket"></i>
+							<button class="reset-btn" type="submit">Sign out</button>
+						</li>
+					</form>
 				</ul>
 			</div>
 		</div>

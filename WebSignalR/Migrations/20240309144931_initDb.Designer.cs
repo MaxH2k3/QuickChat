@@ -12,7 +12,7 @@ using WebSignalR.Models;
 namespace WebSignalR.Migrations
 {
     [DbContext(typeof(WebSignalRContext))]
-    [Migration("20240307011640_initDb")]
+    [Migration("20240309144931_initDb")]
     partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,10 @@ namespace WebSignalR.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Gender")
                         .HasColumnType("longtext");
 
                     b.Property<byte[]>("Password")

@@ -1,4 +1,6 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
@@ -58,6 +60,12 @@ namespace WebSignalR.Pages.Menu
 			}
 
 			return Page();
+		}
+
+		public async Task<IActionResult> OnPostAsync()
+		{
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return Redirect("login");
 		}
 	}
 }

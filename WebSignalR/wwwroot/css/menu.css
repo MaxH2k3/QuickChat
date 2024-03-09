@@ -305,3 +305,8 @@ textarea::-webkit-scrollbar-thumb:hover {
     background-color: transparent;
 }
 
+.reset-btn {
+    border: none;
+    background: transparent;
+    color: white;
+}

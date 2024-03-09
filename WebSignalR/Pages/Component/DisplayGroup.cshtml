@@ -21,7 +21,7 @@
 				@{
 					for (int i = 0; i < Model.Groups.Count(); i++)
 					{
-						<li @(i == 0 ? "class=active" : "")>
+						<li class="d-flex justify-content-between @(i == 0 ? "active" : "")">
 							<input type="hidden" name="group-id" class="group-id-sidebar" value="@Model.Groups.ElementAt(i).GroupId" />
 							<div class="d-flex bd-highlight">
 								<div class="img_cont">
@@ -32,6 +32,9 @@
 									<span class="group-name-sidebar">@Model.Groups.ElementAt(i).GroupName</span>
 									<p>@Model.Groups.ElementAt(i).NumOfMember</p>
 								</div>
+							</div>
+							<div class="mt-auto mb-auto">
+								<a href="#" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 							</div>
 						</li>
 					}

@@ -99,6 +99,10 @@ namespace WebSignalR.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Gender")
                         .HasColumnType("longtext");
 
                     b.Property<byte[]>("Password")
