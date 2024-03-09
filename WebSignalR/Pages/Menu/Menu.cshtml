@@ -1,0 +1,41 @@
+﻿@page "/menu"
+@model WebSignalR.Pages.Menu.MenuModel
+
+@{
+	ViewData["Style"] = "~/css/menu.css";
+}
+
+<input type="hidden" id="user-id" value="@(HttpContext.User.Claims.ElementAt(0).Value)" />
+<div class="container-fluid h-100">	
+	<div class="row justify-content-center h-100">
+		@{
+            await Html.RenderPartialAsync("../Component/DisplayGroup");
+            await Html.RenderPartialAsync("../Component/DisplayMessage");
+            await Html.RenderPartialAsync("../Component/DisplayNewGroup");
+        }
+		
+	</div>
+</div>
+
+<script>
+
+	document.addEventListener("DOMContentLoaded", function () {
+		document.querySelector("#action_menu_btn").addEventListener("click", () => {
+			var btnMenu = document.querySelector(".action_menu");
+			if (btnMenu.style.display) {
+				btnMenu.style.display = null;
+			} else {
+				btnMenu.style.display = "block";
+			}
+		});
+	});
+
+</script>
+
+
+<script src="~/js/dist/browser/signalr.js"></script>
+<script src="~/js/event-click.js" asp-append-version="true"></script>
+<script src="~/js/index.js" asp-append-version="true"></script>
+<script src="~/js/message.js" asp-append-version="true"></script>
+<script src="~/js/chat.js" asp-append-version="true"></script>
+<script src="~/js/helper.js" asp-append-version="true"></script>

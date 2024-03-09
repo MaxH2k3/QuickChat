@@ -1,0 +1,60 @@
+﻿@page "/login"
+@model WebSignalR.Pages.Login.LoginModel
+
+@{
+    ViewData["Style"] = "~/css/login.css";
+}
+
+<div class="min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 bg-gray">
+                <div class="d-flex flex-column justify-content-between h-100 p-3 p-md-4 p-xl-5">
+                    <h3 class="m-0">Welcome!</h3>
+                    <img class="img-fluid mx-auto" loading="lazy" src="https://cdn.iconscout.com/icon/free/png-256/free-fast-chat-4571240-3895979.png" width="245" height="80" alt="BootstrapBrain Logo">
+                    <p class="mb-0">What is this?...</p>
+                </div>
+            </div>
+            <div class=" col-md-6 p-3 p-xl-5 d-grid gap-3 bg-light-gray">
+                <div class="row text-center mx-auto">
+                    <h3>Log in</h3>
+                </div>
+                    
+                <div class="row gy-3 gy-md-4">
+                    <form method="post" class="d-grid gap-3">
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="email" asp-for="UserDTO.UserName" required>
+                        </div>
+                        <div class="col-12">
+                             <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                             <input type="password" class="form-control" id="password" value="" asp-for="UserDTO.Password" required>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-custom btn-primary w-100" type="submit">Log in now</button>
+                        </div>
+                    </form>
+                </div>
+                    
+                <div class="col-12">
+                    <p class="m-0">Or sign in with</p>
+                </div>
+
+                <div class="row">
+                            
+                            <div class="d-flex gap-3 flex-column flex-xl-row">
+                                <a href="#!" class="btn bsb-btn-xl btn-outline-primary d-flex justify-content-center align-items-center">
+                                    <span class="fs-6">Login With Guest</span>
+                                </a>
+                                <a href="/register" class="btn bsb-btn-xl btn-outline-primary d-flex justify-content-center align-items-center">
+                                    <span class="fs-6">Register Account</span>
+                                </a>
+                                <a href="#!" class="btn bsb-btn-xl btn-outline-primary d-flex justify-content-center align-items-center">
+                                    <span class="fs-6">Forgot Password</span>
+                                </a>
+                            </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

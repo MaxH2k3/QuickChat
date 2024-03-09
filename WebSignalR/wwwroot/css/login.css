@@ -1,0 +1,19 @@
+﻿.bg-gray {
+    background-color: #e5e5e5 !important;
+}
+
+.bg-light-gray {
+    background-color: #fafafa !important;
+}
+
+.btn-custom {
+    padding: 0.625rem;
+    border-radius: 0.8rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.bsb-btn-xl {
+    padding: 0 0.7rem;
+    border-radius: 0.6rem;
+}

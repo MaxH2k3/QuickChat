@@ -1,0 +1,82 @@
+﻿@model WebSignalR.Pages.Menu.MenuModel;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<input type="hidden" id="leave-group" class="btn" value="Leave Group" />
+<input type="hidden" name="group-name" id="group-name" value="@(Model.Groups.Count() > 0 ? Model.Groups.ElementAt(0).GroupId : "")" />
+<div class="col-md-8 col-xl-6 chat">
+	<div class="card">
+		<div class="card-header msg_head">
+			<div class="d-flex bd-highlight">
+				<div class="img_cont">
+					<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+					<span class="online_icon"></span>
+				</div>
+				<div class="user_info">
+					<span>Chat with Khalid</span>
+					<p>1767 Messages</p>
+				</div>
+				<div class="video_cam">
+					<span><i class="fas fa-video"></i></span>
+					<span><i class="fas fa-phone"></i></span>
+				</div>
+			</div>
+			<span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+			<div class="action_menu">
+				<ul>
+					<li><i class="fas fa-user-circle"></i> View profile</li>
+					<li><i class="fas fa-users"></i> Add to close friends</li>
+					<li><i class="fas fa-plus"></i> Add to group</li>
+					<li id="leave-group"><i class="fa-solid fa-arrow-right-from-bracket"></i> Leave</li>
+				</ul>
+			</div>
+		</div>
+		<div class="card-body msg_card_body" id="display-message">
+			@{
+				var userId = Context.User.Claims.ElementAt(0);
+				foreach(var item in Model.Messages)
+				{	
+					if(userId.Value.Equals(item.UserId.ToString()))
+					{
+						<div class="d-flex justify-content-end mb-4">
+							<div class="msg_cotainer_send">
+								@item.Content
+								<span class="msg_time_send">@item.CreatedDate.ToString("dd/MM/yyyy")</span>
+							</div>
+							<div class="img_cont_msg">
+								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg" />
+							</div>
+						</div>
+					} else
+					{
+						<div class="d-flex justify-content-start mb-4">
+							<div class="img_cont_msg">
+								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+							</div>
+							<div class="msg_cotainer">
+								@item.Content
+								<span class="msg_time">@item.CreatedDate.ToString("dd/MM/yyyy")</span>
+							</div>
+						</div>
+					}
+
+				}
+			}
+		</div>
+		<div class="card-footer">
+			<div class="input-group">
+				<div class="input-group-append">
+					<span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+				</div>
+				<textarea value="" id="group-message-text" class="form-control type_msg" placeholder="Type your message..."></textarea>
+				<div class="input-group-append">
+					<span id="groupmsg" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model WebSignalR.Pages.Menu.MenuModel;
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">All Groups</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input type="text" placeholder="Type a group name" id="new-group-name" value="" class="form-control search">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text search_btn">
+                            <a><i class="fas fa-search"></i></a>
+                            <a style="margin-left: 1rem;"></a>
+                            <a id="create-group" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-solid fa-folder-plus"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Group ID</th>
+                            <th scope="col">Group name</th>
+                            <th scope="col">Num Of People</th>
+                            <th scope="col" id="join-group">Join Group</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-new-group">
+                        @{
+                            for (int i = 0; i < Model.NewGroups.Count(); i++)
+                            {
+                                <tr class="detail-group">
+                                    <td class="group-id-detail">@Model.NewGroups.ElementAt(i).GroupId</td>
+                                    <td class="group-name-detail">@Model.NewGroups.ElementAt(i).GroupName</td>
+                                    <td class="group-numOfMember-detail">@Model.NewGroups.ElementAt(i).NumOfMember</td>
+                                    <td class="join-group"><i class="fa-solid fa-plus"></i></td>
+                                </tr>
+                            }
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+</div>

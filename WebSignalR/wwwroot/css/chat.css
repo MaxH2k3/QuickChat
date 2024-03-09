@@ -1,0 +1,16 @@
+﻿body {
+    height: 100%;
+}
+
+.margin-left-1 {
+    margin-left: 1rem;
+}
+
+.container {
+    height: 60vh;
+}
+
+.container .row {
+    height: 100%;
+    border-radius: 0.8rem;
+}
