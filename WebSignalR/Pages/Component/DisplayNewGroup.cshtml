@@ -21,27 +21,28 @@
                         </span>
                     </div>
                 </div>
-                <table class="table text-center">
+                <table class="table text-center mt-3">
                     <thead>
-                        <tr>
-                            <th scope="col">Group ID</th>
-                            <th scope="col">Group name</th>
-                            <th scope="col">Num Of People</th>
-                            <th scope="col" id="join-group">Join Group</th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Group name</th>
+                        <th scope="col">Num Of People</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col" id="join-group">Join Group</th>
+                    </tr>
                     </thead>
                     <tbody id="list-new-group">
-                        @{
-                            for (int i = 0; i < Model.NewGroups.Count(); i++)
-                            {
-                                <tr class="detail-group">
-                                    <td class="group-id-detail">@Model.NewGroups.ElementAt(i).GroupId</td>
-                                    <td class="group-name-detail">@Model.NewGroups.ElementAt(i).GroupName</td>
-                                    <td class="group-numOfMember-detail">@Model.NewGroups.ElementAt(i).NumOfMember</td>
-                                    <td class="join-group"><i class="fa-solid fa-plus"></i></td>
-                                </tr>
-                            }
+                    @{
+                        for (int i = 0; i < Model.NewGroups.Count(); i++)
+                        {
+                            <tr class="detail-group">
+                                <td class="group-id-detail d-none">@Model.NewGroups.ElementAt(i).GroupId</td>
+                                <td class="group-name-detail">@Model.NewGroups.ElementAt(i).GroupName</td>
+                                <td class="group-numOfMember-detail">@Model.NewGroups.ElementAt(i).NumOfMember</td>
+                                <td>@Model.NewGroups.ElementAt(i).DateCreated.ToString("dd/MM/yyyy")</td>
+                                <td class="join-group"><i class="fa-solid fa-plus"></i></td>
+                            </tr>
                         }
+                    }
                         
                     </tbody>
                 </table>
@@ -49,4 +50,17 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+        </div>
+    </div>
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+	$(document).ready(() => {
+		$("#new-group-name").on("input", (event) => {
+			useSearchNewGroup(event.target.value);
+		});
+		
+	})
+</script>	

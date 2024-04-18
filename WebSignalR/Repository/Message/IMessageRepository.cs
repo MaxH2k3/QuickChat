@@ -1,10 +1,11 @@
 ﻿using WebSignalR.Models;
+using WebSignalR.Models.Dto;
 
 namespace WebSignalR.Repository
 {
 	public interface IMessageRepository
 	{
-		Task<IEnumerable<Message>> GetMessageOnGroup(string groupId);
-		Task<Message> AddMessageToGroup(string groupId, string userId, string content);
+		Task<IEnumerable<MessageDTO>> GetMessageOnGroup(string groupId);
+		Task<MessageDTO> AddMessageToGroup(string groupId, string userId, string content);
 	}
 }

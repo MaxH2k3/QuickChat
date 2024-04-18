@@ -1,11 +1,11 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
-using WebSignalR.Hubs;
 using WebSignalR.Models;
+using WebSignalR.Models.Dto;
 using WebSignalR.Repository;
 
 namespace WebSignalR.Pages.Menu
@@ -25,7 +25,10 @@ namespace WebSignalR.Pages.Menu
 		public IEnumerable<Group> NewGroups { get; set; } = new List<Group>();
 
 		[BindProperty]
-		public IEnumerable<Message> Messages { get; set; } = new List<Message>();
+		public IEnumerable<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
+
+		[BindProperty]
+		public IEnumerable<GroupDTO> ListGroups { get; set; } = new List<GroupDTO>();
 
 		public MenuModel(IGroupUserRepository groupUserRepository,
 			IMapper mapper, IGroupRepository groupRepository,
@@ -50,10 +53,13 @@ namespace WebSignalR.Pages.Menu
 			var groupUsers = await _groupUserRepository.GetAllGroupByUser(userId);
 			Groups = _mapper.Map<IEnumerable<Group>>(groupUsers);
 
-			// Get all group without user
+			// Get all group
 			NewGroups = await _groupRepository.GetAllGroupWithoutUser(userId);
 
-			if (Groups.Count() > 0)
+			// Get all group on database
+			ListGroups = await _groupRepository.GetGroupsAsync(userId);
+
+			if (Groups.Any())
 			{
 				// Get all message of group
 				Messages = await _messageRepository.GetMessageOnGroup(Groups.ElementAt(0).GroupId.ToString());
@@ -67,5 +73,13 @@ namespace WebSignalR.Pages.Menu
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			return Redirect("login");
 		}
+
+		public async Task<JsonResult> OnGetSearchGroup(string name, string userId)
+		{
+			var groups = await _groupRepository.SearchGroup(name, Guid.Parse(userId));
+
+			return new JsonResult(groups);
+		}
+
 	}
 }

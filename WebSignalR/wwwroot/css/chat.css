@@ -21,3 +21,22 @@ a {
 a:hover {
     color: lightgray;
 }
+
+.overflow-hidden {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+}
+
+.w-85 {
+    width: 85%;
+}
+
+.max-w-90 {
+    max-width: 90%;
+}
+
+.min-w-50px {
+    min-width: 30px;
+}

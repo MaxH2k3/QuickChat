@@ -6,31 +6,33 @@ using WebSignalR.Repository;
 
 namespace WebSignalR.Pages.Auth
 {
-    public class RegisterModel : PageModel
-    {
-        private readonly IUserRepository _userRepository;
+	public class RegisterModel : PageModel
+	{
+		private readonly IUserRepository _userRepository;
 
-        public RegisterModel(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
+		public RegisterModel(IUserRepository userRepository)
+		{
+			_userRepository = userRepository;
+		}
 
-        public void OnGet()
-        {
-        }
+		public void OnGet()
+		{
+		}
 
-        [BindProperty]
-        public string MessageError { get; set; } = null!;
-        public async Task<IActionResult> OnPostAsync(RegisterUser registerUser)
-        {
-            var responseDTO = await _userRepository.Register(registerUser);
-            if (responseDTO.Status == HttpStatusCode.Created)
-            {
-                return RedirectToPage("Login");
-            }
-            MessageError = responseDTO.Message!;
-            return Page();
-        }
+		[BindProperty]
+		public string MessageError { get; set; } = null!;
+		public RegisterUser RegisterUser { get; set; } = null!;
 
-    }
+		public async Task<IActionResult> OnPostAsync(RegisterUser registerUser)
+		{
+			var responseDTO = await _userRepository.Register(registerUser);
+			if (responseDTO.Status == HttpStatusCode.Created)
+			{
+				return RedirectToPage("Login");
+			}
+			MessageError = responseDTO.Message!;
+			return Page();
+		}
+
+	}
 }

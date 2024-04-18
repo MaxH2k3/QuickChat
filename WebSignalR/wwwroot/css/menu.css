@@ -282,6 +282,7 @@ body, html {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background-color: #ffffff40;
+  border-radius: 5px;
 }
 
 /* Handle on hover */

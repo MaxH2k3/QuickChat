@@ -1,5 +1,6 @@
 ﻿@page "/menu"
 @model WebSignalR.Pages.Menu.MenuModel
+@using System.Text.Json;
 
 @{
 	ViewData["Style"] = "~/css/menu.css";
@@ -18,6 +19,9 @@
 </div>
 
 <script>
+	//let listGroupUser = @Html.Raw(JsonSerializer.Serialize(Model.Groups, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+	//let listNewGroup = @Html.Raw(JsonSerializer.Serialize(Model.NewGroups, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+	let listGroups = @Html.Raw(JsonSerializer.Serialize(Model.ListGroups, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
 
 	document.addEventListener("DOMContentLoaded", function () {
 		document.querySelector("#action_menu_btn").addEventListener("click", () => {
@@ -31,11 +35,3 @@
 	});
 
 </script>
-
-
-<script src="~/js/dist/browser/signalr.js"></script>
-<script src="~/js/event-click.js" asp-append-version="true"></script>
-<script src="~/js/index.js" asp-append-version="true"></script>
-<script src="~/js/message.js" asp-append-version="true"></script>
-<script src="~/js/chat.js" asp-append-version="true"></script>
-<script src="~/js/helper.js" asp-append-version="true"></script>

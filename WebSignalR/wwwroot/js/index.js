@@ -38,14 +38,15 @@ Array.from(document.getElementsByClassName("detail-group")).forEach((element, in
 // Add event listener for the group exist
 Array.from(document.getElementById("groups").getElementsByTagName("li")).forEach((element, index) => {
 
-
     // Add event click active group
     element.addEventListener("click", function () {
         addEventClickForGroup(element);
     });
 
     // Add event load message for group click
-    addEventLoadMessageForGroup(element);
+    addEventLoadMessageForGroup($(element));
 
+    // Add event leave group exist
+    addEventLeaveGroup(element);
 });
 

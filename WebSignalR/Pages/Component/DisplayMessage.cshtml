@@ -49,9 +49,9 @@
 					if(userId.Value.Equals(item.UserId.ToString()))
 					{
 						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								@item.Content
-								<span class="msg_time_send">@item.CreatedDate.ToString("dd/MM/yyyy")</span>
+							<div class="msg_cotainer_send max-w-90">
+								<span class="text-wrap">@item.Content</span>
+								<span class="msg_time_send min-w-50px">@item.CreatedDate</span>
 							</div>
 							<div class="img_cont_msg">
 								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg" />
@@ -63,9 +63,9 @@
 							<div class="img_cont_msg">
 								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
 							</div>
-							<div class="msg_cotainer">
-								@item.Content
-								<span class="msg_time">@item.CreatedDate.ToString("dd/MM/yyyy")</span>
+							<div class="msg_cotainer max-w-90">
+								<span>@item.Content</span>
+								<span class="msg_time min-w-50px">@item.CreatedDate</span>
 							</div>
 						</div>
 					}

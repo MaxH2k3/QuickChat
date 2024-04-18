@@ -1,4 +1,5 @@
 ﻿using WebSignalR.Models;
+using WebSignalR.Models.Dto;
 
 namespace WebSignalR.Repository
 {
@@ -12,6 +13,7 @@ namespace WebSignalR.Repository
 		Task<Guid> GetIdOfGroup(string groupName);
 		Task<IEnumerable<Group>> GetAllGroupWithoutUser(Guid userId);
 		Task<bool> IsExistedGroupId(string groupId);
-
+		Task<IEnumerable<Group>> SearchGroup(string groupName, Guid userId);
+		Task<IEnumerable<GroupDTO>> GetGroupsAsync(Guid userId);
 	}
 }

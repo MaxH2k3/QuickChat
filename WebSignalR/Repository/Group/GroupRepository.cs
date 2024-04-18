@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using WebSignalR.Models;
+using WebSignalR.Models.Dto;
 
 namespace WebSignalR.Repository
 {
@@ -21,6 +23,7 @@ namespace WebSignalR.Repository
 		{
 			return await _context.Groups.ToListAsync();
 		}
+
 		public async Task<Group?> GetGroup(Guid groupId)
 		{
 			return await _context.Groups.FirstOrDefaultAsync(g => g.GroupId.Equals(groupId));
@@ -85,6 +88,47 @@ namespace WebSignalR.Repository
 			return await _context.Groups
 					.Where(g => !listId.Contains(g.GroupId))
 					.ToListAsync();
+		}
+
+		public async Task<IEnumerable<Group>> SearchGroup(string groupName, Guid userId)
+		{
+			return await _context.GroupUsers
+				.Where(g => g.Group.GroupName.Contains(groupName) && g.UserId.Equals(userId))
+				.Select(x => x.Group)
+				.ToListAsync();
+		}
+
+		public async Task<IEnumerable<GroupDTO>> GetGroupsAsync(Guid userId)
+		{
+			var groups = await (from g in _context.Groups
+						 join gu in _context.GroupUsers
+						 on g.GroupId equals gu.GroupId into gj
+						 from ggu in gj.DefaultIfEmpty()
+						 select new GroupDTO
+						 {
+							 GroupId = g.GroupId,
+							 GroupName = g.GroupName,
+							 DateCreated = g.DateCreated,
+							 NumOfMember = g.NumOfMember,
+							 IsJoining = ggu.UserId.Equals(userId)
+						 }).ToListAsync();
+
+			/*var groups = await _context.GroupUsers
+				.Join(_context.Groups, 
+					gu => gu.GroupId,
+					g => g.GroupId,
+					(gu, g) => new { GroupUser = gu, Group = g })
+				.Select(g => new GroupDTO
+				{
+					GroupId = g.Group.GroupId,
+					GroupName = g.Group.GroupName,
+					DateCreated = g.Group.DateCreated,
+					NumOfMember = g.Group.NumOfMember,
+					IsJoining = true
+				})
+				.ToListAsync();*/
+
+			return groups;
 		}
 	}
 }

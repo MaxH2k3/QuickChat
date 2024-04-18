@@ -1,23 +1,27 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using System.Security.Claims;
+using WebSignalR.Models;
 using WebSignalR.Repository;
 using Group = WebSignalR.Models.Group;
 
 namespace WebSignalR.Hubs
 {
-	public class ChatHub : Hub<IChatHub>
+	public class ChatHubOld : Hub
 	{
 		// List properties of user;
 		private IEnumerable<Claim> Claims => Context.User!.Claims;
 
 		// Repository
+		private readonly IUserRepository _userRepository;
 		private readonly IGroupRepository _groupRepository;
 		private readonly IMessageRepository _messageRepository;
 		private readonly IGroupUserRepository _groupUserRepository;
 
-		public ChatHub(IGroupRepository groupRepository,
+		public ChatHubOld(IUserRepository userRepository, IGroupRepository groupRepository,
 			IMessageRepository messageRepository, IGroupUserRepository groupUserRepository)
 		{
+			_userRepository = userRepository;
 			_groupRepository = groupRepository;
 			_messageRepository = messageRepository;
 			_groupUserRepository = groupUserRepository;
@@ -37,6 +41,16 @@ namespace WebSignalR.Hubs
 			await base.OnConnectedAsync();
 		}
 
+		public async Task SendMessage(string user, string message)
+		{
+			await Clients.All.SendAsync("ReceiveMessage", user, message);
+		}
+
+		public Task SendPrivateMessage(string user, string message)
+		{
+			return Clients.User(user).SendAsync("ReceiveMessage", message);
+		}
+
 		public async Task AddToGroup(string groupId)
 		{
 			string userId = Claims.ElementAt(0).Value;
@@ -51,7 +65,7 @@ namespace WebSignalR.Hubs
 				await Groups.AddToGroupAsync(Context.ConnectionId, groupId.ToString());
 
 				// Notification
-				await Clients.Group(groupId.ToString()).SendNotification($"{Claims.ElementAt(1).Value} has joined the group.");
+				await Clients.Group(groupId.ToString()).SendAsync("Send", $"{Claims.ElementAt(1).Value} has joined the group.");
 
 				return;
 			}
@@ -77,7 +91,7 @@ namespace WebSignalR.Hubs
 			await Groups.RemoveFromGroupAsync(userId, groupId.ToString());
 
 			// Notification
-			await Clients.Group(groupId).SendNotification($"{Claims.ElementAt(1).Value} has left the group.");
+			await Clients.Group(groupId).SendAsync("Send", $"{Claims.ElementAt(1).Value} has left the group.");
 		}
 
 		public async Task SendMessageToGroup(string groupId, string message)
@@ -91,8 +105,11 @@ namespace WebSignalR.Hubs
 				// Add message to database
 				var tempMessage = await _messageRepository.AddMessageToGroup(groupId.ToString(), userId, message);
 
+				// Convert to json
+				string json = JsonConvert.SerializeObject(tempMessage);
+
 				// Send message
-				await Clients.Group(groupId.ToString()).SendMessage(tempMessage);
+				await Clients.Group(groupId.ToString()).SendAsync("Send", json);
 
 				return;
 			}
@@ -111,7 +128,7 @@ namespace WebSignalR.Hubs
 				return;
 			}
 
-			await Clients.All.DisplayGroup(groupId.ToString(), groupName);
+			await Clients.All.SendAsync("DisplayGroup", groupId.ToString(), groupName);
 		}
 
 		public async Task ConnectionToAllGroup(IEnumerable<Group> groups)
@@ -126,7 +143,9 @@ namespace WebSignalR.Hubs
 		{
 			var messages = await _messageRepository.GetMessageOnGroup(groupId);
 
-			await Clients.Caller.LoadMessageForGroup(messages);
+			string json = JsonConvert.SerializeObject(messages);
+
+			await Clients.Caller.SendAsync("LoadMessageForGroup", json);
 		}
 
 	}

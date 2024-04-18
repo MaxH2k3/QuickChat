@@ -14,32 +14,32 @@
                 <form method="post" class="d-grid gap-3">
                     <div class="col-12">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="Email" required>
+                        <input type="email" class="form-control" id="email" name="Email" asp-for="RegisterUser.Email" required>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label">UserName <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="UserName" name="UserName" required>
+                        <input type="text" class="form-control" id="UserName" name="UserName" asp-for="RegisterUser.Username" required>
                     </div>
                     <div class="col-12">
                         <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" id="password" name="Password" required>
+                        <input type="password" class="form-control" id="password" name="Password" asp-for="RegisterUser.Password" required>
                     </div>
                     <label>Gender</label>
                     <div class="d-flex ">
                         <div>
-                            <input class="form-check-input" type="radio" name="Gender" value="MALE" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="Gender" value="MALE" id="gender1" asp-for="RegisterUser.Gender">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Male
                             </label>
                         </div>
                         <div class="margin-left-1">
-                            <input class="form-check-input" type="radio" name="Gender" value="FEMALE" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="Gender" value="FEMALE" id="gender2" asp-for="RegisterUser.Gender">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Female
                             </label>
                         </div>
                         <div class="margin-left-1">
-                            <input class="form-check-input" type="radio" name="Gender" value="ANOTHER" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="Gender" value="ANOTHER" id="gender3" asp-for="RegisterUser.Gender">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Another
                             </label>
@@ -48,13 +48,13 @@
                     <label>Role</label>
                     <div class="d-flex ">
                         <div>
-                            <input class="form-check-input" type="radio" name="Role" value="USER" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="Role" value="USER" id="role1" asp-for="RegisterUser.Role">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 User
                             </label>
                         </div>
                         <div class="margin-left-1">
-                            <input class="form-check-input" type="radio" name="Role" value="ADMIN" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="Role" value="ADMIN" id="role2" asp-for="RegisterUser.Role">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Admin
                             </label>
