@@ -818,10 +818,10 @@ function Sizzle( selector, context, results, seed ) {
 					return results;
 
 				// Class selector
-				} else if ( ( m = match[ 3 ] ) && support.getElementsByClassName &&
-					context.getElementsByClassName ) {
+				} else if ( ( m = match[ 3 ] ) && support.getElementsByclass &&
+					context.getElementsByclass ) {
 
-					push.apply( results, context.getElementsByClassName( m ) );
+					push.apply( results, context.getElementsByclass( m ) );
 					return results;
 				}
 			}
@@ -1177,8 +1177,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Verify that getAttribute really returns attributes and not properties
 	// (excepting IE8 booleans)
 	support.attributes = assert( function( el ) {
-		el.className = "i";
-		return !el.getAttribute( "className" );
+		el.class = "i";
+		return !el.getAttribute( "class" );
 	} );
 
 	/* getElement(s)By*
@@ -1191,7 +1191,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	} );
 
 	// Support: IE<9
-	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
+	support.getElementsByclass = rnative.test( document.getElementsByclass );
 
 	// Support: IE<10
 	// Check if getElementById returns elements by name
@@ -1291,9 +1291,9 @@ setDocument = Sizzle.setDocument = function( node ) {
 		};
 
 	// Class
-	Expr.find[ "CLASS" ] = support.getElementsByClassName && function( className, context ) {
-		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
-			return context.getElementsByClassName( className );
+	Expr.find[ "CLASS" ] = support.getElementsByclass && function( class, context ) {
+		if ( typeof context.getElementsByclass !== "undefined" && documentIsHTML ) {
+			return context.getElementsByclass( class );
 		}
 	};
 
@@ -1865,15 +1865,15 @@ Expr = Sizzle.selectors = {
 				};
 		},
 
-		"CLASS": function( className ) {
-			var pattern = classCache[ className + " " ];
+		"CLASS": function( class ) {
+			var pattern = classCache[ class + " " ];
 
 			return pattern ||
 				( pattern = new RegExp( "(^|" + whitespace +
-					")" + className + "(" + whitespace + "|$)" ) ) && classCache(
-						className, function( elem ) {
+					")" + class + "(" + whitespace + "|$)" ) ) && classCache(
+						class, function( elem ) {
 							return pattern.test(
-								typeof elem.className === "string" && elem.className ||
+								typeof elem.class === "string" && elem.class ||
 								typeof elem.getAttribute !== "undefined" &&
 									elem.getAttribute( "class" ) ||
 								""
@@ -8185,7 +8185,7 @@ jQuery.extend( {
 
 	propFix: {
 		"for": "htmlFor",
-		"class": "className"
+		"class": "class"
 	}
 } );
 
@@ -8366,43 +8366,43 @@ jQuery.fn.extend( {
 		}
 
 		return this.each( function() {
-			var className, i, self, classNames;
+			var class, i, self, classs;
 
 			if ( isValidValue ) {
 
 				// Toggle individual class names
 				i = 0;
 				self = jQuery( this );
-				classNames = classesToArray( value );
+				classs = classesToArray( value );
 
-				while ( ( className = classNames[ i++ ] ) ) {
+				while ( ( class = classs[ i++ ] ) ) {
 
-					// Check each className given, space separated list
-					if ( self.hasClass( className ) ) {
-						self.removeClass( className );
+					// Check each class given, space separated list
+					if ( self.hasClass( class ) ) {
+						self.removeClass( class );
 					} else {
-						self.addClass( className );
+						self.addClass( class );
 					}
 				}
 
 			// Toggle whole class name
 			} else if ( value === undefined || type === "boolean" ) {
-				className = getClass( this );
-				if ( className ) {
+				class = getClass( this );
+				if ( class ) {
 
-					// Store className if set
-					dataPriv.set( this, "__className__", className );
+					// Store class if set
+					dataPriv.set( this, "__class__", class );
 				}
 
 				// If the element has a class name or if we're passed `false`,
-				// then remove the whole classname (if there was one, the above saved it).
+				// then remove the whole class (if there was one, the above saved it).
 				// Otherwise bring back whatever was previously saved (if anything),
 				// falling back to the empty string if nothing was stored.
 				if ( this.setAttribute ) {
 					this.setAttribute( "class",
-						className || value === false ?
+						class || value === false ?
 						"" :
-						dataPriv.get( this, "__className__" ) || ""
+						dataPriv.get( this, "__class__" ) || ""
 					);
 				}
 			}
@@ -8410,13 +8410,13 @@ jQuery.fn.extend( {
 	},
 
 	hasClass: function( selector ) {
-		var className, elem,
+		var class, elem,
 			i = 0;
 
-		className = " " + selector + " ";
+		class = " " + selector + " ";
 		while ( ( elem = this[ i++ ] ) ) {
 			if ( elem.nodeType === 1 &&
-				( " " + stripAndCollapse( getClass( elem ) ) + " " ).indexOf( className ) > -1 ) {
+				( " " + stripAndCollapse( getClass( elem ) ) + " " ).indexOf( class ) > -1 ) {
 					return true;
 			}
 		}

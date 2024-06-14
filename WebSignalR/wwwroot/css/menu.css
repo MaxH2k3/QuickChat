@@ -231,6 +231,7 @@ body, html {
     top: 30px;
     right: 15px;
     display: none;
+    backdrop-filter: blur(10px);
 }
 
     .action_menu ul {

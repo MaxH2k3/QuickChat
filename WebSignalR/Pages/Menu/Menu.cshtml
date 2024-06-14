@@ -7,8 +7,8 @@
 }
 
 <input type="hidden" id="user-id" value="@(HttpContext.User.Claims.ElementAt(0).Value)" />
-<div class="container-fluid h-100">	
-	<div class="row justify-content-center h-100">
+<div class="container-fluid h-100 position-relative">
+	<div class="test row justify-content-center h-100">
 		@{
             await Html.RenderPartialAsync("../Component/DisplayGroup");
             await Html.RenderPartialAsync("../Component/DisplayMessage");
@@ -16,22 +16,19 @@
         }
 		
 	</div>
+	
+	@{
+		await Html.RenderPartialAsync("../Shared/Another/star");
+		await Html.RenderPartialAsync("../Shared/Another/sky");
+		await Html.RenderPartialAsync("../Component/DisplaySettingTheme");
+	}
+	
 </div>
+
+
 
 <script>
 	//let listGroupUser = @Html.Raw(JsonSerializer.Serialize(Model.Groups, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
 	//let listNewGroup = @Html.Raw(JsonSerializer.Serialize(Model.NewGroups, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
 	let listGroups = @Html.Raw(JsonSerializer.Serialize(Model.ListGroups, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
-
-	document.addEventListener("DOMContentLoaded", function () {
-		document.querySelector("#action_menu_btn").addEventListener("click", () => {
-			var btnMenu = document.querySelector(".action_menu");
-			if (btnMenu.style.display) {
-				btnMenu.style.display = null;
-			} else {
-				btnMenu.style.display = "block";
-			}
-		});
-	});
-
 </script>

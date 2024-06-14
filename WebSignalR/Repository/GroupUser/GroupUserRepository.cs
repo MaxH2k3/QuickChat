@@ -40,9 +40,9 @@ namespace WebSignalR.Repository
 
             _context.GroupUsers.Add(groupUser);
 
-            var group = await _context.Groups.AsNoTracking().FirstOrDefaultAsync(g => g.GroupId.ToString().Equals(groupId));
-            group.NumOfMember += 1;
-            _context.Groups.Add(group);
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.GroupId.ToString().Equals(groupId));
+            group!.NumOfMember += 1;
+            _context.Groups.Update(group);
             
             return await _context.SaveChangesAsync() > 0;
         }
@@ -58,9 +58,9 @@ namespace WebSignalR.Repository
 
             _context.GroupUsers.Remove(groupUser);
             
-            var group = await _context.Groups.FirstOrDefaultAsync(g => g.GroupId.Equals(groupId));
-            group.NumOfMember -= 1;
-            _context.Groups.Add(group);
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.GroupId.ToString().Equals(groupId));
+            group!.NumOfMember -= 1;
+            _context.Groups.Update(group);
 
             return await _context.SaveChangesAsync() > 0;
         }

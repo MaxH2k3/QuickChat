@@ -1,4 +1,6 @@
-﻿function convertToDateOnly(str) {
+﻿let current_theme = 'quantum-theme';
+
+function convertToDateOnly(str) {
     var date = new Date(str);
     return date.toLocaleDateString("en-GB");
 }
@@ -14,4 +16,17 @@ function debounce(func, delay) {
             func.apply(context, args);
         }, delay);
     };
+}
+
+function openThemeQuantum(theme) {
+    // delete class of body
+    $("body").removeClass(current_theme);
+    $(".display-new-group").removeClass(current_theme);
+
+    // update current theme
+    current_theme = theme;
+
+    // add new class
+    $("body").addClass(current_theme);
+    $(".display-new-group").addClass(current_theme);
 }

@@ -1,0 +1,86 @@
+﻿@{
+	var userName = Context.User.Claims.ElementAt(1).Value;
+	var gender = Context.User.Claims.ElementAt(3).Value;
+}
+
+<div class="d-flex bd-highlight">
+	<div class="img_cont">
+		<img src="/image/female/female1.jpg" class="rounded-circle user_img">
+		<span class="online_icon"></span>
+	</div>
+	<div class="user_info">
+		<span>@userName</span>
+		<p>@gender</p>
+	</div>
+	<div class="video_cam">
+		<span><i class="fas fa-video"></i></span>
+		<span><i class="fas fa-phone"></i></span>
+	</div>
+</div>
+<span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+<div class="action_menu">
+	<ul>
+		<li><i class="fas fa-user-circle"></i> View profile</li>
+		<li class="setting-theme"><i class="fa-solid fa-palette"></i> Setting theme</li>
+		<li><i class="fas fa-plus"></i> Add to group</li>
+		<form method="post">
+		<li>
+			<i class="fa-solid fa-arrow-right-from-bracket"></i>
+			<button class="reset-btn" type="submit">Sign out</button>
+		</li>
+		</form>
+	</ul>
+</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+
+		// Sử dụng sự kiện click cho các button trong .theme-picker
+		$(".theme-picker").on("click", "button", function () {
+			// Lấy giá trị của button được click
+			var value = $(this).val();
+
+			openThemeQuantum(value);
+		});
+
+		document.querySelector("#action_menu_btn").addEventListener("click", () => {
+
+			// handle change menu
+			var btnMenu = document.querySelector(".action_menu");
+			if (btnMenu.style.display) {
+				btnMenu.style.display = null;
+			} else {
+				btnMenu.style.display = "block";
+			}
+		});
+
+		document.querySelector(".setting-theme").addEventListener("click", () => {
+            
+			var themePicker = document.querySelector(".theme-picker");
+
+			if (themePicker.classList.contains("animation-show")) {
+				themePicker.classList.remove("animation-show");
+			} else {
+				themePicker.classList.add("animation-show");
+			}
+
+			
+        })
+
+		document.addEventListener("click", (event) => {
+			var btnMenu = document.querySelector(".action_menu");
+			var themePicker = document.querySelector(".theme-picker");
+
+			// Kiểm tra xem phần tử được nhấp có là phần tử mà bạn muốn đóng hay không
+			if (!event.target.closest(".action_menu") && !event.target.closest("#action_menu_btn")) {
+				btnMenu.style.display = null;
+			}
+
+			if (!event.target.closest(".setting-theme") && !event.target.closest(".theme-picker__body")) {
+				themePicker.classList.remove("animation-show");
+			}
+		});
+
+	});
+
+</script>
